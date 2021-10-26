@@ -5,7 +5,7 @@ Simple system to back up SQL Server and upload to Google Cloud Storage
 
 MIT License
 
-Copyright (c) [2021] [Cappi1998]
+Copyright (c) 2021 Cappi1998
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
