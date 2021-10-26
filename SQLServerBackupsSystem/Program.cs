@@ -9,6 +9,7 @@ class Program
     public static string Base_Path = Directory.GetCurrentDirectory();
     public static SQLServerConfig sqlConfig = new SQLServerConfig();
     public static List<int> HoursOfDayToRunBackup = new List<int>();
+    public static string DiscordWebHook_NotificationsURL = "";
     public static void Main(string[] args)
     {
         Console.Title = "SQLServerBackupsSystem";
@@ -84,6 +85,8 @@ class Program
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: true)
             .Build();
+
+        Program.DiscordWebHook_NotificationsURL = Configuration.GetValue<string>("DiscordWebHook_NotificationsURL");
 
         var HoursOfDayToRunBackup = new List<int>();
         Configuration.GetSection("HoursOfDayToRunBackup").Bind(HoursOfDayToRunBackup);
