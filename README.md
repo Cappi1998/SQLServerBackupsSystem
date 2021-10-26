@@ -1,5 +1,5 @@
 # SQLServerBackupsSystem
-Simple system to back up SQL Server and upload to Google Cloud Storage
+Simple system to back up SQL Server and upload to Google Cloud Storage, .bak file created for each database and uploaded to Google Cloud Storage.
 
 ## appsettings.json example
 ----
