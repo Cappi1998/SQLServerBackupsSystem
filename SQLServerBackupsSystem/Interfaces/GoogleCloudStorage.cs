@@ -16,6 +16,14 @@ namespace SQLServerBackupsSystem.Interfaces
             bucketName = configuration.GetValue<string>("GoogleCloudStorageBucketName");
         }
 
+        public List<Google.Apis.Storage.v1.Data.Object> GetBucketListObjects()
+        {
+            List<Google.Apis.Storage.v1.Data.Object> storageObjects = storageClient.ListObjects(bucketName).ToList();
+
+            return storageObjects;
+        }
+      
+
         public async Task DeleteFileAsync(string fileNameForStorage)
         {
             await storageClient.DeleteObjectAsync(bucketName, fileNameForStorage);
@@ -39,5 +47,6 @@ namespace SQLServerBackupsSystem.Interfaces
     {
         bool UploadFileAsync(string Filapath, string fileNameForStorage);
         Task DeleteFileAsync(string fileNameForStorage);
+        List<Google.Apis.Storage.v1.Data.Object> GetBucketListObjects();
     }
 }

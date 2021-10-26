@@ -9,6 +9,7 @@ class Program
     public static string Base_Path = Directory.GetCurrentDirectory();
     public static SQLServerConfig sqlConfig = new SQLServerConfig();
     public static List<int> HoursOfDayToRunBackup = new List<int>();
+    public static int MaxDaysToStorageBackup = 90;
     public static string DiscordWebHook_NotificationsURL = "";
     public static void Main(string[] args)
     {
@@ -31,6 +32,8 @@ class Program
             IHost host = CreateHostBuilder(args).Build();
             host.Services.UseScheduler(scheduler =>
             {
+                scheduler.Schedule<BucketStatusCheck>().DailyAtHour(2).PreventOverlapping($"BucketStatusCheck");
+
                 if (HoursOfDayToRunBackup == null || HoursOfDayToRunBackup.Count == 0)
                 {
                     Log.Information($"No backup schedule has been set, backup has been set to run once a day!");
@@ -70,7 +73,8 @@ class Program
                     services.AddScheduler();
 
                     //Coravel Service
-                    services.AddTransient<AutomaticProcess>();
+                    services.AddTransient<AutomaticProcess>(); 
+                    services.AddTransient<BucketStatusCheck>();
 
         });
 
@@ -85,7 +89,8 @@ class Program
             .Build();
 
         Program.DiscordWebHook_NotificationsURL = Configuration.GetValue<string>("DiscordWebHook_NotificationsURL");
-
+        Program.MaxDaysToStorageBackup = Configuration.GetValue<int>("MaxDaysToStorageBackup");
+        
         var HoursOfDayToRunBackup = new List<int>();
         Configuration.GetSection("HoursOfDayToRunBackup").Bind(HoursOfDayToRunBackup);
         Program.HoursOfDayToRunBackup = HoursOfDayToRunBackup;
