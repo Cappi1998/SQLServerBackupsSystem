@@ -25,7 +25,9 @@ Simple system to back up SQL Server and upload to Google Cloud Storage, .bak fil
       "Database_Name02",
       "databasename_Etc"
     ]
-  }
+  },
+  
+  "DiscordWebHook_NotificationsURL": "https://discordapp.com/api/webhooks/XXXXXXXXXX"
 }
 ```
 
