@@ -34,7 +34,6 @@ namespace SQLServerBackupsSystem.Schedules
                 }
 
                 string fileDir = Path.Combine(Program.sqlConfig.SQLServerBackupDir, FileName);
-                //string fileDir = "BrasilSKins.bak";
 
                 if (File.Exists(fileDir))
                 {
@@ -46,7 +45,9 @@ namespace SQLServerBackupsSystem.Schedules
                         string msg = $"File: {fileDir} uploaded to Google Cloud successfully!";
                         _logger.LogInformation(msg);
                         DiscordWebHook.SendMessage(msg);
-                        File.Delete(fileDir);
+
+                        FileInfo fileInfo = new System.IO.FileInfo(fileDir);
+                        fileInfo.Delete();
                     }
                     else
                     {

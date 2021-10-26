@@ -60,7 +60,6 @@ class Program
         }
     }
 
-
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
 
@@ -77,7 +76,6 @@ class Program
 
         return host;
     }
-
 
     public static void LoadConfig()
     {
