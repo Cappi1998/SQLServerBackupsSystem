@@ -12,6 +12,7 @@ Simple system to back up SQL Server and upload to Google Cloud Storage, .bak fil
 {
   "GoogleCredentialFile": "KeyAuth.json",
   "GoogleCloudStorageBucketName": "backupsfilessql",
+  "MaxDayToStorageBackup": 90,
 
   "HoursOfDayToRunBackup": [5,20],
 
