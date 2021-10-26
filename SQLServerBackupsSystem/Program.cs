@@ -14,8 +14,7 @@ class Program
     public static void Main(string[] args)
     {
         Console.Title = "SQLServerBackupsSystem";
-        LoadConfig();
-
+        
         Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft.AspNetCore", Serilog.Events.LogEventLevel.Warning)
@@ -25,6 +24,8 @@ class Program
                 .WriteTo.Console()
                 .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(), "log-.txt"), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+
+        LoadConfig();
 
         try
         {
@@ -89,15 +90,20 @@ class Program
             .Build();
 
         Program.DiscordWebHook_NotificationsURL = Configuration.GetValue<string>("DiscordWebHook_NotificationsURL");
+        Log.Information($"DiscordWebHook_NotificationsURL: {Program.DiscordWebHook_NotificationsURL}");
+
         Program.MaxDaysToStorageBackup = Configuration.GetValue<int>("MaxDaysToStorageBackup");
-        
+        Log.Information($"MaxDaysToStorageBackup: {Program.MaxDaysToStorageBackup}");
+
         var HoursOfDayToRunBackup = new List<int>();
         Configuration.GetSection("HoursOfDayToRunBackup").Bind(HoursOfDayToRunBackup);
         Program.HoursOfDayToRunBackup = HoursOfDayToRunBackup;
+        Log.Information($"HoursOfDayToRunBackup: {string.Join(",", Program.HoursOfDayToRunBackup)}");
 
         var sqlConfig = new SQLServerConfig();
         Configuration.GetSection("SQLServerConfig").Bind(sqlConfig);
         Program.sqlConfig = sqlConfig;
+        Log.Information($"SQLServerConfig: {Newtonsoft.Json.JsonConvert.SerializeObject(sqlConfig)}");
     }
 }
 
