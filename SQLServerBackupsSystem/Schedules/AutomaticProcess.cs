@@ -51,14 +51,14 @@ namespace SQLServerBackupsSystem.Schedules
                     }
                     else
                     {
-                        string msg = $"FAILED to Upload File: {fileDir}";
+                        string msg = $"ERROR: FAILED to Upload File: {fileDir}";
                         _logger.LogError(msg);
                         DiscordWebHook.SendMessage(msg);
                     }
                 }
                 else
                 {
-                    string msg = $"File: {fileDir} not Found!";
+                    string msg = $"ERROR: File: {fileDir} not Found!";
                     _logger.LogError(msg);
                     DiscordWebHook.SendMessage(msg);
                 }
