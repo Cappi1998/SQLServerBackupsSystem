@@ -2,13 +2,15 @@
 Simple system to back up SQL Server and upload to Google Cloud Storage, .bak file created for each database and uploaded to Google Cloud Storage.
 
 
-### Attention
+### Attentions:
 
-Remember to use a `user` with sufficient permission to access the created backup files.
+* Remember to use a `user` with sufficient permission to access the created backup files.
 
-`SQLServerBackupDir` - You need to inform the directory where the sql server is configured to create the backup files, if you do not enter the location correctly, the files will not be located by the program and therefore will not be sent to Google Cloud Storage.
+* Use a "Google Cloud Storage Buckets" only for this app as it deletes old files as per the "MaxDaysToStorageBackup" rule
 
-`MaxDaysToStorageBackup` - Is the maximum time (Days) that a backup will be saved to storage, when the time is reached, the file will be deleted.
+* `SQLServerBackupDir` - You need to inform the directory where the sql server is configured to create the backup files, if you do not enter the location correctly, the files will not be located by the program and therefore will not be sent to Google Cloud Storage.
+
+* `MaxDaysToStorageBackup` - Is the maximum time (Days) that a backup will be saved to storage, when the time is reached, the file will be deleted.
 
 ## appsettings.json example
 ----
